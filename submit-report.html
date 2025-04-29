@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LOCKEDIN – Submit Report</title>
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+    <header class="navbar">
+        <a class="logo" href="index.html">LOCKEDIN</a>
+        <nav class="menu">
+            <a href="sign-in.html" class="nav-item">Sign In</a>
+            <a href="submit-report.html" class="nav-item active">Submit Report</a>
+            <a href="browse-report.html" class="nav-item">Browse Reports</a>
+            <a href="wellness.html" class="nav-item">Wellness</a>
+            <a href="mini-game.html" class="nav-item">Mini game</a>
+        </nav>
+    </header>
+
+    <main class="container submit-section">
+        <h1>Submit Your Interview Report</h1>
+        <form id="report-form">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" name="company" placeholder="e.g. Acme Corp" required>
+
+            <label for="rounds">Number of Rounds</label>
+            <input type="number" id="rounds" name="rounds" min="1" required>
+
+            <label for="questions">Questions (one per line)</label>
+            <textarea id="questions" name="questions" rows="5" placeholder="Tell me about yourself\nReverse a linked list" required></textarea>
+
+            <button type="submit" class="submit-button">Submit Report</button>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('report-form').onsubmit = e => {
+            e.preventDefault();
+            const data = {
+            company: e.target.company.value,
+            rounds: parseInt(e.target.rounds.value),
+            questions: e.target.questions.value.split('\n')
+            };
+            console.log('Submitting report', data);
+            alert('Report submitted!');
+            window.location.href = 'browse-reports.html';
+        };
+    </script>
+</body>
+</html>

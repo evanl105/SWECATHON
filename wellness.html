@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Wellness – Task Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="navbar">
+        <a class="logo" href="index.html">LOCKEDIN</a>
+        <nav class="menu">
+            <a href="sign-in.html" class="nav-item">Sign In</a>
+            <a href="submit-report.html" class="nav-item">Submit Report</a>
+            <a href="browse-report.html" class="nav-item">Browse Reports</a>
+            <a href="wellness.html" class="nav-item active">Wellness</a>
+            <a href="mini-game.html" class="nav-item">Mini game</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h2>Suggestions for a Healthy Work-Life Balance</h2>
+        <ul id="task-list">
+            <li>
+                <input type="checkbox" id="task1">
+                <label for="task1">Set clear boundaries between work and personal time</label>
+            </li>
+            <li>
+                <input type="checkbox" id="task2">
+                <label for="task2">Take regular breaks during work</label>
+            </li>
+            <li>
+                <input type="checkbox" id="task3">
+                <label for="task3">Prioritize physical exercise (30 minutes daily)</label>
+            </li>
+            <li>
+                <input type="checkbox" id="task4">
+                <label for="task4">Schedule quality time with friends or family</label>
+            </li>
+            <li>
+                <input type="checkbox" id="task5">
+                <label for="task5">Practice mindfulness or meditation for relaxation</label>
+            </li>
+            <li>
+                <input type="checkbox" id="task6">
+                <label for="task6">Ensure you get enough sleep (7-9 hours)</label>
+            </li>
+            <li>
+                <input type="checkbox" id="task7">
+                <label for="task7">Set realistic goals for the week</label>
+            </li>
+            <li>
+                <input type="checkbox" id="task8">
+                <label for="task8">Disconnect from work emails during personal time</label>
+            </li>
+        </ul>
+
+        <div>
+            <p>Points: <span id="points">0</span></p>
+            <p>Level: <span id="level">1</span></p>
+        </div>
+
+        <div>
+            <button id="reset-points" class="btn">Reset Points</button>
+            <button id="reset-tasks" class="btn">Reset Tasks</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Take small steps every day for a balanced life. You're doing great!</p>
+        <p>Once you reset your points, you need to triple click the task to check it off!</p>
+    </footer>
+
+    <script>
+        // Initialize points and level from localStorage, or set defaults
+        let points = localStorage.getItem("points") ? parseInt(localStorage.getItem("points")) : 0;
+        let level = localStorage.getItem("level") ? parseInt(localStorage.getItem("level")) : 1;
+        const pointsElement = document.getElementById("points");
+        const levelElement = document.getElementById("level");
+
+        pointsElement.textContent = points;
+        levelElement.textContent = level;
+
+        // Track completed tasks in localStorage
+        const completedTasks = JSON.parse(localStorage.getItem("completedTasks")) || {};
+
+        // Set initial task states based on completed tasks
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            if (completedTasks[checkbox.id]) {
+                checkbox.checked = true;
+                checkbox.disabled = true; // Disable the task if already completed
+            }
+
+            // Add event listener to each checkbox
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked && !completedTasks[checkbox.id]) {
+                    // Task completed for the first time, award points
+                    points += 10;
+                    localStorage.setItem("points", points);
+                    pointsElement.textContent = points;
+
+                    // Check if level up is needed
+                    if (points >= level * 50) {
+                        level++;
+                        localStorage.setItem("level", level);
+                        levelElement.textContent = level;
+                    }
+
+                    // Mark the task as completed
+                    completedTasks[checkbox.id] = true;
+                    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+
+                    // Disable the checkbox to prevent further changes
+                    checkbox.disabled = true;
+                } else if (!checkbox.checked && completedTasks[checkbox.id]) {
+                    // Task unchecked, allow rechecking for point prevention (points not deducted)
+                    completedTasks[checkbox.id] = false;
+                    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+
+                    // Allow rechecking but not awarding points again
+                    checkbox.disabled = false;
+                }
+            });
+        });
+
+        // Reset points and level
+        document.getElementById("reset-points").addEventListener("click", () => {
+            points = 0;
+            level = 1;
+            localStorage.setItem("points", points);
+            localStorage.setItem("level", level);
+            pointsElement.textContent = points;
+            levelElement.textContent = level;
+        });
+
+        // Reset tasks
+        document.getElementById("reset-tasks").addEventListener("click", () => {
+            // Uncheck all tasks and reset their states
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.disabled = false; // Re-enable tasks for rechecking
+            });
+
+            // Clear completed tasks in localStorage
+            localStorage.removeItem("completedTasks");
+        });
+    </script>
+</body>
+</html>
+
+

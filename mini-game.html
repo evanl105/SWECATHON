@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LOCKEDIN – Mini Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="game.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="index.html">LOCKEDIN</a>
+    <nav class="menu">
+      <a href="sign-in.html" class="nav-item">Sign In</a>
+      <a href="submit-report.html" class="nav-item">Submit Report</a>
+      <a href="browse-report.html" class="nav-item">Browse Reports</a>
+      <a href="wellness.html" class="nav-item">Wellness</a>
+      <a href="mini-game.html" class="nav-item active">Mini Game</a>
+    </nav>
+  </header>
+
+
+
+  <main class="game-container">
+    <h1>Typing Challenge Game</h1>
+    <p>Type the words below before they fade away! These are important words you might use in your interview or resume.</p>
+    
+    <div id="wordDisplay" class="word-display"></div>
+    <input type="text" id="inputField" placeholder="Type here..." autofocus />
+    <div id="score" class="score">Score: 0</div>
+    <div id="timer" class="timer">Time: 30s</div>
+
+    <button id="startButton" class="btn">Start Game</button>
+    <button id="stopButton" class="btn" style="display: none;">Stop Game</button>
+    <button id="restartButton" class="btn" style="display: none;">Restart Game</button>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>

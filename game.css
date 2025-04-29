@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f7;
+  }
+  
+  
+  .game-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .word-display {
+    margin: 20px;
+    font-size: 1.5rem;
+    height: 200px;
+    overflow-y: scroll;
+    border: 2px solid #ccc;
+    padding: 10px;
+  }
+  
+  .word {
+    font-size: 2rem;
+    margin: 5px;
+    color: #333;
+    animation: fadeInOut 3s forwards;
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0; }
+  }
+  
+  #inputField {
+    margin-top: 20px;
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+  }
+  
+  .score, .timer {
+    margin-top: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .btn:hover {
+    background-color: #4cae4c;
+  }
+  

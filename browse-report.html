@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LOCKEDIN – Browse Reports</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="navbar">
+    <a class="logo" href="index.html">LOCKEDIN</a>
+    <nav class="menu">
+        <a href="sign-in.html" class="nav-item">Sign In</a>
+        <a href="submit-report.html" class="nav-item">Submit Report</a>
+        <a href="browse-report.html" class="nav-item active">Browse Reports</a>
+        <a href="wellness.html" class="nav-item">Wellness</a>
+        <a href="mini-game.html" class="nav-item">Mini game</a>
+    </nav>
+    </header>
+
+    <main class="container browse-section">
+        <h1>Browse Interview Questions</h1>
+        <div id="company-list" class="company-list">
+        <!-- JavaScript will render buttons -->
+        </div>
+
+        <div id="report-detail" class="report-detail">
+        <!-- Selected report details appear here -->
+        </div>
+    </main>
+
+    <!-- Remove later -->
+    <script>
+        const mockReports = [
+            { company: 'Chase', rounds: [
+                { roundNum:1, type:'phone', questions:['Tell me about yourself','Why Chase?'] }
+            ]
+            },
+            { company: 'Google', rounds: [
+                { roundNum:1, type:'on-site', questions:['Design a URL shortener'] }
+            ]
+            }
+        ];
+
+        const companies = [...new Set(mockReports.map(r => r.company))];
+        const listEl = document.getElementById('company-list');
+        companies.forEach(name => {
+            const btn = document.createElement('button');
+            btn.textContent = name;
+            btn.onclick = () => showDetail(name);
+            listEl.appendChild(btn);
+        });
+
+        function showDetail(company) {
+            const detail = mockReports.filter(r => r.company === company)[0];
+            const container = document.getElementById('report-detail');
+            container.innerHTML = `<h2>${company}</h2>` +
+            detail.rounds.map(rr =>
+                `<div><strong>Round ${rr.roundNum} (${rr.type})</strong><ul>` +
+                rr.questions.map(q => `<li>${q}</li>`).join('') +
+                `</ul></div>`
+            ).join('');
+        }
+    </script>
+</body>
+</html>
