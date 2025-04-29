@@ -57,6 +57,7 @@
   /* Buttons & CTAs */
   .btn,
   .submit-button,
+  .sign-up-button,
   .cta-button {
     display: inline-block;
     background-color: #fca311;
@@ -71,6 +72,7 @@
   }
   .btn:hover,
   .submit-button:hover,
+  .sign-up-button,
   .cta-button:hover {
     background-color: #e64a00;
   }

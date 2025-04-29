@@ -19,34 +19,42 @@
         </nav>
     </header>
 
+
+
     <main class="container submit-section">
         <h1>Submit Your Interview Report</h1>
         <form id="report-form">
-            <label for="company">Company Name</label>
-            <input type="text" id="company" name="company" placeholder="e.g. Acme Corp" required>
-
-            <label for="rounds">Number of Rounds</label>
-            <input type="number" id="rounds" name="rounds" min="1" required>
-
-            <label for="questions">Questions (one per line)</label>
-            <textarea id="questions" name="questions" rows="5" placeholder="Tell me about yourself\nReverse a linked list" required></textarea>
-
-            <button type="submit" class="submit-button">Submit Report</button>
+          <label for="company">Company Name</label>
+          <input type="text" id="company" name="company" placeholder="e.g. Acme Corp" required>
+    
+          <label for="rounds">Number of Rounds</label>
+          <input type="number" id="rounds" name="rounds" min="1" required>
+    
+          <label for="questions">Questions (one per line)</label>
+          <textarea id="questions" name="questions" rows="5" placeholder="Tell me about yourself\nReverse a linked list" required></textarea>
+    
+          <button type="submit" class="submit-button">Submit Report</button>
         </form>
-    </main>
-
-    <script>
-        document.getElementById('report-form').onsubmit = e => {
-            e.preventDefault();
-            const data = {
+      </main>
+    
+      <script>
+        document.getElementById('report-form').onsubmit = (e) => {
+          e.preventDefault();
+          
+          const data = {
             company: e.target.company.value,
             rounds: parseInt(e.target.rounds.value),
             questions: e.target.questions.value.split('\n')
-            };
-            console.log('Submitting report', data);
-            alert('Report submitted!');
-            window.location.href = 'browse-reports.html';
+          };
+    
+          // Save the report to localStorage
+          let reports = JSON.parse(localStorage.getItem('reports')) || [];
+          reports.push(data);
+          localStorage.setItem('reports', JSON.stringify(reports));
+    
+          alert('Report submitted!');
+          window.location.href = 'browse-report.html';
         };
-    </script>
-</body>
-</html>
+      </script>
+    </body>
+    </html>

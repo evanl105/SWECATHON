@@ -18,49 +18,67 @@
     </nav>
     </header>
 
+
+
+
     <main class="container browse-section">
-        <h1>Browse Interview Questions</h1>
+        <h1>Browse Interview Reports</h1>
         <div id="company-list" class="company-list">
-        <!-- JavaScript will render buttons -->
+            <!-- JavaScript will render buttons for each company -->
         </div>
 
         <div id="report-detail" class="report-detail">
-        <!-- Selected report details appear here -->
+            <!-- Selected report details appear here -->
         </div>
     </main>
 
-    <!-- Remove later -->
     <script>
-        const mockReports = [
-            { company: 'Chase', rounds: [
-                { roundNum:1, type:'phone', questions:['Tell me about yourself','Why Chase?'] }
-            ]
-            },
-            { company: 'Google', rounds: [
-                { roundNum:1, type:'on-site', questions:['Design a URL shortener'] }
-            ]
-            }
-        ];
+        // Fetch reports from localStorage
+        const reports = JSON.parse(localStorage.getItem('reports')) || [];
 
-        const companies = [...new Set(mockReports.map(r => r.company))];
-        const listEl = document.getElementById('company-list');
-        companies.forEach(name => {
-            const btn = document.createElement('button');
-            btn.textContent = name;
-            btn.onclick = () => showDetail(name);
-            listEl.appendChild(btn);
-        });
+        const companyList = document.getElementById('company-list');
+        const reportDetail = document.getElementById('report-detail');
 
-        function showDetail(company) {
-            const detail = mockReports.filter(r => r.company === company)[0];
-            const container = document.getElementById('report-detail');
-            container.innerHTML = `<h2>${company}</h2>` +
-            detail.rounds.map(rr =>
-                `<div><strong>Round ${rr.roundNum} (${rr.type})</strong><ul>` +
-                rr.questions.map(q => `<li>${q}</li>`).join('') +
-                `</ul></div>`
-            ).join('');
+        // Function to render company buttons dynamically
+        function renderCompanyList() {
+            companyList.innerHTML = '';  // Clear the list before rendering
+            reports.forEach((report, index) => {
+                const button = document.createElement('button');
+                button.textContent = report.company;
+                button.onclick = () => showReportDetails(report, index);
+                companyList.appendChild(button);
+            });
         }
+
+        // Function to display the report details when a company is clicked
+        function showReportDetails(report, index) {
+            reportDetail.innerHTML = `
+                <h2>Company: ${report.company}</h2>
+                <p><strong>Number of Rounds: </strong>${report.rounds}</p>
+                <ul>
+                    ${report.questions.map(q => `<li>${q}</li>`).join('')}
+                </ul>
+                <button class="delete-button" onclick="deleteReport(${index})">Delete Report</button>
+            `;
+        }
+
+        // Function to delete a report
+        function deleteReport(index) {
+            // Remove the report from the reports array
+            reports.splice(index, 1);
+            
+            // Update localStorage with the new array
+            localStorage.setItem('reports', JSON.stringify(reports));
+            
+            // Re-render the company list
+            renderCompanyList();
+            
+            // Clear the report detail section
+            reportDetail.innerHTML = '';
+        }
+
+        // Initial rendering of the company list
+        renderCompanyList();
     </script>
 </body>
 </html>

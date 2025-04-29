@@ -1,4 +1,4 @@
-const words = ["Motivation", "Leadership", "Teamwork", "Communication", "Problem-solving", "Adaptability", "Creativity", "Time Management", "Innovation", "Dedication"];
+const words = ["Motivation", "Leadership", "Teamwork", "Communication", "Problem-solving", "Adaptability", "Creativity", "Time Management", "Innovation", "Dedication", "Headed", "Assisted", "Eager"];
 const inputField = document.getElementById('inputField');
 const wordDisplay = document.getElementById('wordDisplay');
 const scoreElement = document.getElementById('score');
